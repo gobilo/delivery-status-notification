@@ -51,6 +51,9 @@ class DsnParser
 
     private function parseBlock(string $block): Fields
     {
+        // unfold multiple-line representation (see RFC 822)
+        $block = preg_replace('/\r\n(?:[ \t]+)/', ' ', $block);
+
         $blockFields = new Fields();
         $lines = explode("\n", trim($block));
 
